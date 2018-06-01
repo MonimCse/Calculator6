@@ -6,4 +6,5 @@
     <dimen name="large_text">55sp</dimen>
     <dimen name="stroke">2dp</dimen>
     <dimen name="redius">5dp</dimen>
+    <dimen name="button_redius">25dp</dimen>
 </resources>
