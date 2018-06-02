@@ -3,7 +3,6 @@ package org.login.com.calculator6;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import butterknife.BindView;
@@ -11,10 +10,12 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity /*implements View.OnClickListener*/ {
 
-    /*   Button mBtnOne;
-       Button mBtnTwo;*/
+
     @BindView(R.id.edt_value)
     EditText mEdtValue;
+
+
+    Values values = new Values();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,36 +23,60 @@ public class MainActivity extends AppCompatActivity /*implements View.OnClickLis
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-       /* mBtnOne = findViewById(R.id.btn_one);
-        mBtnOne.setOnClickListener(this);
-        mBtnTwo = findViewById(R.id.btn_two);
-        mBtnTwo.setOnClickListener(this);*/
-
-        /* mEdtValue = findViewById(R.id.edt_value);*/
-
-//        mBtnOne.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mEdtValue.setText(mBtnOne.getText().toString());
-//            }
-//        });
     }
 
-   /* @Override
-    public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.btn_one:
-                mEdtValue.setText(mBtnOne.getText().toString());
+    public void setValue(View view) {
+        if (values.isResult) {
+            mEdtValue.setText("" + String.valueOf(view.getTag()));
+            values.setResult(false);
+        } else {
+            mEdtValue.setText(mEdtValue.getText().toString() + String.valueOf(view.getTag()));
+
+        }
+
+    }
+
+    public void setAction(View view) {
+
+        switch (String.valueOf(view.getTag())) {
+            case "Add":
+                values.setActionName("Add");
+               // values.setFirstValue(Integer.parseInt(mEdtValue.getText().toString()));
+                mEdtValue.setText(mEdtValue.getText().toString() + " + ");
+
+
                 break;
-            case R.id.btn_two:
-                mEdtValue.setText(mBtnTwo.getText().toString());
+
+            case "Sub":
+                values.setActionName("Sub");
+               // values.setFirstValue(Integer.parseInt(mEdtValue.getText().toString()));
+                mEdtValue.setText(mEdtValue.getText().toString() + " - ");
+
+                break;
+
+            case "Mul":
+                values.setActionName("Mul");
+                //values.setFirstValue(Integer.parseInt(mEdtValue.getText().toString()));
+                mEdtValue.setText(mEdtValue.getText().toString() + " * ");
+
+                break;
+
+            case "Div":
+                values.setActionName("Div");
+                //values.setFirstValue(Integer.parseInt(mEdtValue.getText().toString()));
+                mEdtValue.setText(mEdtValue.getText().toString() + " / ");
+
+
+                break;
+
+            case "Equal":
+                Calculation calculation = new Calculation();
+
+                values.setValue(mEdtValue.getText().toString());
+                mEdtValue.setText(String.valueOf(calculation.getResult(values)));
+                values.setResult(true);
                 break;
         }
-    }*/
-
-    public void setValue(View view) {
-        mEdtValue.setText(String.valueOf(view.getTag()));
 
     }
 }
